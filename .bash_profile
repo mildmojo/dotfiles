@@ -3,6 +3,5 @@ if [ -f ~/.bashrc ]; then
 fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-[[ -s /home/shrapnel/.nvm/nvm.sh ]] && . /home/shrapnel/.nvm/nvm.sh # This loads NVM
+[[ -s "$HOME/.nvm/nvm.sh" ]]      && source "$HOME/.nvm/nvm.sh" # This loads NVM
 
