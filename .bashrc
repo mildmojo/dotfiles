@@ -2,8 +2,6 @@ PATH=$PATH:$HOME/.rvm/bin:$HOME/bin
 
 source $HOME/.promptrc
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
 export EDITOR=nano
 
 alias xclip="xclip -selection c"
