@@ -1,0 +1,53 @@
+[core]
+	editor = nano
+	whitespace = trailing-space,space-before-tab
+	autocrlf = false
+	ignorecase = true
+
+[color]
+    ui = auto
+  [color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+  [color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+  [color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[alias]
+    status = status -bs
+    s  = status --short
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    dc = diff --cached
+    lg = log -p
+    lall = log --graph --decorate --pretty=oneline --abbrev-commit
+    lalla = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lola = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+    ls = ls-files
+
+    # Show files ignored by git:
+    ign = ls-files -o -i --exclude-standard
+
+[difftool]
+	prompt = false
+        tool = meld
+
+[difftool "meld"]
+	cmd = meld \"$LOCAL\" \"$REMOTE\"
+[push]
+	default = current
+[diff]
+	tool = meld
+[rerere]
+	enabled = true
