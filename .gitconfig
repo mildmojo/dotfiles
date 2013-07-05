@@ -23,7 +23,7 @@
 [alias]
     status = status -bs
     s  = status --short
-    st = status
+    st = status -sb
     ci = commit
     br = branch
     co = checkout
