@@ -35,6 +35,8 @@
     lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     lola = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
     ls = ls-files
+    wip = commit -am wip
+    unwip = !bash -c '[[ "`git log --pretty=%s -n 1`" == "wip" ]] && git reset HEAD^'
 
     # Show files ignored by git:
     ign = ls-files -o -i --exclude-standard
