@@ -26,6 +26,7 @@
     st = status -sb
     ci = commit
     br = branch
+    brt = for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
     co = checkout
     df = diff
     dc = diff --cached
@@ -39,7 +40,7 @@
     unwip = !bash -c '[[ "`git log --pretty=%s -n 1`" == "wip" ]] && git reset HEAD^'
 
     # Find branch's branching-off point (http://stackoverflow.com/questions/1527234/finding-a-branch-point-with-git)
-    oldest-ancestor = !bash -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
+    oldest-ancestor = !bash -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-origin/master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
     bdiff = !bash -c \"git diff `git oldest-ancestor`..\"
     blog = !bash -c \"git log `git oldest-ancestor`.. --oneline\"
 
@@ -58,3 +59,5 @@
 	tool = meld
 [rerere]
 	enabled = true
+[merge]
+	conflictstyle = diff3
