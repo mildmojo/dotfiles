@@ -33,8 +33,8 @@
     lg = log -p
     lall = log --graph --decorate --pretty=oneline --abbrev-commit
     lalla = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    lola = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+    lol = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lola = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
     ls = ls-files
     wip = commit -am wip
     unwip = !bash -c '[[ "`git log --pretty=%s -n 1`" == "wip" ]] && git reset HEAD^'
