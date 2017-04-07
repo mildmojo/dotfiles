@@ -1,8 +1,8 @@
 [core]
-	editor = nano
-	whitespace = trailing-space,space-before-tab
-	autocrlf = false
-	ignorecase = true
+    editor = nano
+    whitespace = trailing-space,space-before-tab
+    autocrlf = false
+    ignorecase = true
 
 [color]
     ui = auto
@@ -38,6 +38,7 @@
     ls = ls-files
     wip = commit -am wip
     unwip = !bash -c '[[ "`git log --pretty=%s -n 1`" == "wip" ]] && git reset HEAD^'
+    cleanup = !git branch --merged master | grep -v 'master$' | xargs git branch -d
 
     # Find branch's branching-off point (http://stackoverflow.com/questions/1527234/finding-a-branch-point-with-git)
     oldest-ancestor = !bash -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-origin/master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
@@ -48,16 +49,19 @@
     ign = ls-files -o -i --exclude-standard
 
 [difftool]
-	prompt = false
+    prompt = false
         tool = meld
 
 [difftool "meld"]
-	cmd = meld \"$LOCAL\" \"$REMOTE\"
+    cmd = meld \"$LOCAL\" \"$REMOTE\"
 [push]
-	default = current
+    default = current
 [diff]
-	tool = meld
+    tool = meld
 [rerere]
-	enabled = true
+    enabled = true
 [merge]
-	conflictstyle = diff3
+    conflictstyle = diff3
+    ff = only
+[rebase]
+    autosquash = true
