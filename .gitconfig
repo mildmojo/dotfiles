@@ -3,6 +3,7 @@
     whitespace = trailing-space,space-before-tab
     autocrlf = false
     ignorecase = true
+    excludesfile = ~/.gitignore
 
 [color]
     ui = auto
@@ -31,17 +32,20 @@
     df = diff
     dc = diff --cached
     lg = log -p
-    lall = log --graph --decorate --pretty=oneline --abbrev-commit
-    lalla = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    lol = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    lola = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+    lall = log --graph --decorate --pretty=oneline --abbrev-commit --first-parent
+    lalla = log --graph --decorate --pretty=oneline --abbrev-commit --all --first-parent
+    lol = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --first-parent
+    lola = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --first-parent
     ls = ls-files
     wip = commit -am wip
     unwip = !bash -c '[[ "`git log --pretty=%s -n 1`" == "wip" ]] && git reset HEAD^'
     cleanup = !git branch --merged master | grep -v 'master$' | xargs git branch -d
+    track = "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
+    
+    # These only work from the project root
     last-commit = rev-list -1 HEAD
-    fixup = !bash -c 'git commit --fixup `git last-commit $1`' -
-    add-fixup = !bash -c 'git add $1 && git fixup $1' -
+    fixup = !bash -c 'git commit --fixup "`git last-commit $1`"' -
+    add-fixup = !bash -c 'git add "$1" && git fixup "$1"' -
     af = !git add-fixup
 
     # Find branch's branching-off point (http://stackoverflow.com/questions/1527234/finding-a-branch-point-with-git)
@@ -51,6 +55,10 @@
 
     # Show files ignored by git:
     ign = ls-files -o -i --exclude-standard
+
+[grep]
+    extendRegexp = true
+    lineNumber = true
 
 [difftool]
     prompt = false
