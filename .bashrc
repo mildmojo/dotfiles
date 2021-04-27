@@ -4,34 +4,19 @@ source $HOME/.promptrc
 
 export EDITOR=nano
 
-alias xclip="xclip -selection c"
-alias open="gnome-open"
-alias less="zless"
-#alias subl="subl -a"
-#alias se="subl -a"
-#alias sen="subl -n"
-alias b="bundle exec"
-alias dbr="rake db:drop db:create db:migrate db:test:prepare db:fixtures:load |grep '^==.*migrated'"
-# Just use Pry everywhere: http://lucapette.me/pry-everywhere
-#alias rpry="rails-console-pry -r awesome_print"
-alias grom="git pull --rebase origin master"
-alias grod="git pull --rebase origin develop"
-alias grc="git rebase --continue"
-alias git_url="git config --get remote.origin.url"
-alias gam="git commit --amend --reuse-message=HEAD"
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-#alias md5sum="md5 -r"
-alias youtube-dl="youtube-dl -x --audio-format mp3"
-#alias ls="ls -G"
-#alias grep="zgrep --color=auto"
+if [ -f ~/.bash_aliases ]; then
+    source ~/.bash_aliases
+fi
 
-# Gulp CLI completions
-#eval "$(gulp --completion=bash)"
-
-# Faster rake startup tip from https://gist.github.com/1688857
-# tl;dr = rvm get head && rvm reinstall 1.9.3 --patch falcon -j 3
-# tl;dr = add environment vars below when running rake
-# alias rake="RUBY_HEAP_MIN_SLOTS=1000000 RUBY_HEAP_SLOTS_INCREMENT=1000000 RUBY_HEAP_SLOTS_GROWTH_FACTOR=1 RUBY_GC_MALLOC_LIMIT=1000000000 RUBY_HEAP_FREE_MIN=500000 rake"
+# Environment vars, broken out to a separate file
+if [ -f ~/.bash_env ]; then
+    source ~/.bash_env
+fi
 
 function rake_one
 {
