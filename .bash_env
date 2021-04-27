@@ -1,0 +1,2 @@
+# Symlinks current node version to $HOME/.nvm/current/bin/node
+export NVM_SYMLINK_CURRENT=true
