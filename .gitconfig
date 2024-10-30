@@ -7,16 +7,16 @@
 
 [color]
     ui = auto
-  [color "branch"]
+[color "branch"]
     current = yellow reverse
     local = yellow
     remote = green
-  [color "diff"]
+[color "diff"]
     meta = yellow bold
     frag = magenta bold
     old = red bold
     new = green bold
-  [color "status"]
+[color "status"]
     added = yellow
     changed = green
     untracked = cyan
@@ -41,7 +41,7 @@
     unwip = !bash -c '[[ "`git log --pretty=%s -n 1`" == "wip" ]] && git reset HEAD^'
     cleanup = !git branch --merged master | grep -v 'master$' | xargs git branch -d
     track = "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
-    
+
     # These only work from the project root
     last-commit = rev-list -1 HEAD
     fixup = !bash -c 'git commit --fixup "`git last-commit $1`"' -
@@ -50,11 +50,28 @@
 
     # Find branch's branching-off point (http://stackoverflow.com/questions/1527234/finding-a-branch-point-with-git)
     oldest-ancestor = !bash -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-origin/master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
-    bdiff = !bash -c \"git diff `git oldest-ancestor`.. $@\"
-    blog = !bash -c \"git log `git oldest-ancestor`.. --oneline $@\"
+    bdiffm = !bash -c \"git diff `git oldest-ancestor`.. $@\"
+    blogm = !bash -c \"git log `git oldest-ancestor`.. --oneline $@\"
+
+    # Same, but for the master branch
+    bdiff = !bash -c \"git diff `git oldest-ancestor origin/master`.. $@\"
+    blog = !bash -c \"git log `git oldest-ancestor origin/master`.. --oneline $@\"
+    bdiffa = !bash -c \"git diff `git oldest-ancestor origin/main`.. $@\"
+    bloga = !bash -c \"git log `git oldest-ancestor origin/main`.. --oneline $@\"
+
+    # Find branch's branching-off point (http://stackoverflow.com/questions/1527234/finding-a-branch-point-with-git)
+    oldest-ancestora = !bash -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-origin/main}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
+    bdiffma = !bash -c \"git diff `git oldest-ancestor`.. $@\"
+    blogma = !bash -c \"git log `git oldest-ancestor`.. --oneline $@\"
+
+    # Same, but for the main branch
+    bdiffa = !bash -c \"git diff `git oldest-ancestor origin/main`.. $@\"
+    bloga = !bash -c \"git log `git oldest-ancestor origin/main`.. --oneline $@\"
 
     # Show files ignored by git:
     ign = ls-files -o -i --exclude-standard
+
+    discard = "!bash -c 'BRANCH=$(git rev-parse --abbrev-ref HEAD); MAIN=$(git rev-parse --verify main >/dev/null 2>&1 && echo main || echo master); git checkout $MAIN && git br -D $BRANCH && git pull'"
 
 [grep]
     extendRegexp = true
@@ -62,12 +79,13 @@
 
 [difftool]
     prompt = false
-        tool = meld
+    tool = meld
 
 [difftool "meld"]
     cmd = meld \"$LOCAL\" \"$REMOTE\"
 [push]
     default = current
+    autoSetupRemote = true
 [diff]
     tool = meld
 [rerere]
@@ -78,6 +96,9 @@
 [rebase]
     autosquash = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    required = true
+    process = git-lfs filter-process
+[init]
+    defaultBranch = main
